@@ -1,3 +1,4 @@
+import React from 'react';
 import { renderHook, waitFor, act } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { supabase } from '@/shared/lib/supabase';
