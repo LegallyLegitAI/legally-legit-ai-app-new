@@ -1,5 +1,5 @@
 // Document feature exports
-export { DocumentGenerator as DocumentGeneratorPage } from './components/DocumentGenerator';
+export { default as DocumentGeneratorPage } from './components/DocumentGenerator';
 
 // Types
 export type * from './types';

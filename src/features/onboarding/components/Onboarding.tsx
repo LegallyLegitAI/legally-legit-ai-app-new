@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/shared/components';
 import { Button } from '@/shared/components';
 
@@ -24,6 +23,6 @@ const Onboarding = () => {
   );
 };
 
-export const Onboarding = () => { return <div>Onboarding Component</div>; };
+export default Onboarding;
 
 

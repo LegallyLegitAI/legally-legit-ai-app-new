@@ -21,5 +21,5 @@ const DocumentGenerator = () => {
   );
 };
 
-export const DocumentGenerator = () => { return <div>DocumentGenerator Component</div>; };
+export default DocumentGenerator;
 

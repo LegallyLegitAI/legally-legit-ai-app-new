@@ -1,8 +1,7 @@
-import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/shared/components';
 import { Button } from '@/shared/components';
 
-const Dashboard = () => {
+const DashboardFixed = () => {
   return (
     <div className="mx-auto max-w-screen-lg p-4">
       <section className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -52,6 +51,7 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export { DashboardFixed };
+export default DashboardFixed;
 
 

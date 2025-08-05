@@ -1,5 +1,5 @@
 // Onboarding feature exports
-export { Onboarding as OnboardingPage } from './components/Onboarding';
+export { default as OnboardingPage } from './components/Onboarding';
 export { OnboardingEnhanced as OnboardingEnhancedPage } from './components/OnboardingEnhanced';
 
 // Types

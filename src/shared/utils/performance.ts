@@ -3,7 +3,7 @@
  * Tracks Core Web Vitals and sends metrics to analytics
  */
 
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+import { onCLS, onINP, onFCP, onLCP, onTTFB } from 'web-vitals';
 
 export interface PerformanceMetric {
   name: string;
@@ -43,8 +43,8 @@ function sendToAnalytics({ name, value, id }: PerformanceMetric): void {
   // In production, send to your analytics service
   if (import.meta.env.PROD) {
     // Example: Google Analytics 4
-    if (typeof gtag !== 'undefined') {
-      gtag('event', name, {
+    if (typeof (window as any).gtag !== 'undefined') {
+      (window as any).gtag('event', name, {
         event_category: 'Web Vitals',
         event_label: id,
         value: Math.round(value * 1000), // GA4 expects integer values
@@ -67,13 +67,13 @@ function sendToAnalytics({ name, value, id }: PerformanceMetric): void {
  */
 export function initPerformanceMonitoring(): void {
   // Core Web Vitals
-  getCLS(sendToAnalytics);
-  getFID(sendToAnalytics);
-  getLCP(sendToAnalytics);
+  onCLS(sendToAnalytics);
+  onINP(sendToAnalytics); // INP replaced FID in web-vitals v4
+  onLCP(sendToAnalytics);
   
   // Additional useful metrics
-  getFCP(sendToAnalytics);
-  getTTFB(sendToAnalytics);
+  onFCP(sendToAnalytics);
+  onTTFB(sendToAnalytics);
 }
 
 /**

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/shared/components';
 import { Button } from '@/shared/components';
 
@@ -52,6 +51,6 @@ const Dashboard = () => {
   );
 };
 
-export const Dashboard = () => { return <div>Dashboard Component</div>; };
+export default Dashboard;
 
 

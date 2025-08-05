@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/shared/components';
 import { Input } from '@/shared/components';
 import { Button } from '@/shared/components';
@@ -37,6 +36,6 @@ const Settings = () => {
   );
 };
 
-export const Settings = () => { return <div>Settings Component</div>; };
+export default Settings;
 
 

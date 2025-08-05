@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/shared/components';
 import { Button } from '@/shared/components';
 
@@ -38,5 +37,5 @@ const Admin = () => {
   );
 };
 
-export const Admin = () => { return <div>Admin Component</div>; };
+export default Admin;
 

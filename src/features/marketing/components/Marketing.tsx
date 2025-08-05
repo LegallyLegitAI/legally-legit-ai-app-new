@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, Button } from '@/shared/components';
 
 export const Marketing = () => {
