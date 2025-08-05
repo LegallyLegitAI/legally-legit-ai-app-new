@@ -1,0 +1,2 @@
+﻿// admin types
+export {};

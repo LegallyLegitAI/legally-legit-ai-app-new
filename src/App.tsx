@@ -1,32 +1,28 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import DocumentGenerator from './pages/DocumentGenerator';
-import About from './pages/About';
-import AppShell from './components/layout/AppShell';
-import Dashboard from './pages/DashboardFixed';
-import Onboarding from './pages/Onboarding';
-import Settings from './pages/Settings';
-import Admin from './pages/AdminFixed';
-import Marketing from './pages/Marketing';
+import { MarketingPage, AboutPage } from '@/features/marketing';
+import { DashboardPage, HomePage } from '@/features/dashboard';
+import { DocumentGeneratorPage } from '@/features/document';
+import { OnboardingPage } from '@/features/onboarding';
+import { SettingsPage } from '@/features/settings';
+import { AdminPage } from '@/features/admin';
+import { AppShell } from '@/shared/components';
 
-function App() {
+export const App = () => {
   return (
     <Router>
       <Routes>
         {/* Marketing page without AppShell */}
-        <Route path="/" element={<Marketing />} />
+        <Route path="/" element={<MarketingPage />} />
         
         {/* App pages with AppShell */}
-        <Route path="/dashboard" element={<AppShell><Dashboard /></AppShell>} />
-        <Route path="/generator" element={<AppShell><DocumentGenerator /></AppShell>} />
-        <Route path="/onboarding" element={<AppShell><Onboarding /></AppShell>} />
-        <Route path="/settings" element={<AppShell><Settings /></AppShell>} />
-        <Route path="/admin" element={<AppShell><Admin /></AppShell>} />
-        <Route path="/about" element={<AppShell><About /></AppShell>} />
-        <Route path="/home" element={<AppShell><Home /></AppShell>} />
+        <Route path="/dashboard" element={<AppShell><DashboardPage /></AppShell>} />
+        <Route path="/generator" element={<AppShell><DocumentGeneratorPage /></AppShell>} />
+        <Route path="/onboarding" element={<AppShell><OnboardingPage /></AppShell>} />
+        <Route path="/settings" element={<AppShell><SettingsPage /></AppShell>} />
+        <Route path="/admin" element={<AppShell><AdminPage /></AppShell>} />
+        <Route path="/about" element={<AppShell><AboutPage /></AppShell>} />
+        <Route path="/home" element={<AppShell><HomePage /></AppShell>} />
       </Routes>
     </Router>
   );
-}
-
-export default App;
+};

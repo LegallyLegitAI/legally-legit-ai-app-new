@@ -14,6 +14,16 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/features/*": ["./src/features/*"],
+      "@/shared/*": ["./src/shared/*"],
+      "@/components/*": ["./src/shared/components/*"],
+      "@/lib/*": ["./src/shared/lib/*"],
+      "@/utils/*": ["./src/shared/utils/*"],
+      "@/types/*": ["./src/shared/types/*"]
+    },
 
     /* Linting */
     "strict": true,
