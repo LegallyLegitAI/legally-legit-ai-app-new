@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  body {
+    @apply bg-white text-gray-900 font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-legally-blue-600 hover:bg-legally-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-legally-green-600 hover:bg-legally-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-legally-blue-200 overflow-hidden;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 border border-legally-red-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-legally-blue-500 focus:border-transparent;
+  }
+
+  .call-to-action {
+    @apply bg-legally-orange-600 hover:bg-legally-orange-700 text-white font-semibold py-3 px-6 rounded-full transition ease-in-out duration-300;
+  }
+}
+
+@keyframes fadeIn {
+from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
