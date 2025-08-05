@@ -13,6 +13,13 @@
     },
     "api/stripe/webhook.ts": {
       "runtime": "@vercel/node"
+    },
+    "api/ai/generate-document.ts": {
+      "runtime": "@vercel/node",
+      "maxDuration": 60
+    },
+    "api/ai/document-types.ts": {
+      "runtime": "@vercel/node"
     }
   },
   "rewrites": [
