@@ -17,12 +17,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/lib/*": ["./src/lib/*"],
       "@/features/*": ["./src/features/*"],
-      "@/shared/*": ["./src/shared/*"],
-      "@/components/*": ["./src/shared/components/*"],
-      "@/lib/*": ["./src/shared/lib/*"],
-      "@/utils/*": ["./src/shared/utils/*"],
-      "@/types/*": ["./src/shared/types/*"]
+      "@/pages/*": ["./src/pages/*"],
+      "@/server/*": ["./src/server/*"]
     },
 
     /* Linting */
