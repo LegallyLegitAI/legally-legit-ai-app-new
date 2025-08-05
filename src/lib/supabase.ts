@@ -32,6 +32,7 @@ export type Database = {
           abn: string | null;
           subscription_status: string | null;
           subscription_plan: string | null;
+          stripe_customer_id: string | null;
           risk_score: number | null;
           onboarding_completed: boolean | null;
         };
@@ -48,6 +49,7 @@ export type Database = {
           abn?: string | null;
           subscription_status?: string | null;
           subscription_plan?: string | null;
+          stripe_customer_id?: string | null;
           risk_score?: number | null;
           onboarding_completed?: boolean | null;
         };
@@ -64,6 +66,7 @@ export type Database = {
           abn?: string | null;
           subscription_status?: string | null;
           subscription_plan?: string | null;
+          stripe_customer_id?: string | null;
           risk_score?: number | null;
           onboarding_completed?: boolean | null;
         };
