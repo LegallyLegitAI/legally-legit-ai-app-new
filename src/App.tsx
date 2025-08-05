@@ -5,6 +5,7 @@ import { DocumentGenerator } from '@/features/document';
 import { OnboardingPage } from '@/features/onboarding';
 import { SettingsPage } from '@/features/settings';
 import LegalLaunchpadPage from '@/pages/LegalLaunchpadPage';
+import GuideDetail from '@/features/launchpad/components/GuideDetail';
 import { AdminPage } from '@/features/admin';
 import { BillingPage } from '@/features/billing';
 import { AppShell } from '@/shared/components';
@@ -45,6 +46,7 @@ export const App = () => {
           <Route path="/settings" element={<OnboardedRoute><AppShell><SettingsPage /></AppShell></OnboardedRoute>} />
           <Route path="/billing" element={<OnboardedRoute><AppShell><BillingPage /></AppShell></OnboardedRoute>} />
           <Route path="/launchpad" element={<OnboardedRoute><AppShell><LegalLaunchpadPage /></AppShell></OnboardedRoute>} />
+          <Route path="/launchpad/:slug" element={<OnboardedRoute><AppShell><GuideDetail /></AppShell></OnboardedRoute>} />
           <Route path="/admin" element={<OnboardedRoute><AppShell><AdminPage /></AppShell></OnboardedRoute>} />
           <Route path="/home" element={<OnboardedRoute><AppShell><HomePage /></AppShell></OnboardedRoute>} />
         </Routes>

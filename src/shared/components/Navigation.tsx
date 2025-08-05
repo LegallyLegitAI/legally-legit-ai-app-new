@@ -17,6 +17,9 @@ const Navigation = () => {
             <Nav.Link as={Link} to="/generator">
               Document Generator
             </Nav.Link>
+            <Nav.Link as={Link} to="/launchpad">
+              Legal Launchpad
+            </Nav.Link>
             <Nav.Link as={Link} to="/billing">
               Billing
             </Nav.Link>

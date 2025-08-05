@@ -4,7 +4,7 @@ import { GuideContent } from './contentService';
 export interface SearchResult {
   item: GuideContent;
   score?: number;
-  matches?: Fuse.FuseResultMatch[];
+  matches?: readonly Fuse.FuseResultMatch[];
 }
 
 export class SearchService {
@@ -40,7 +40,7 @@ export class SearchService {
     
     return results.map(result => ({
       item: result.item,
-      score: result.score,
+      score: result.score || 0,
       matches: result.matches,
     }));
   }

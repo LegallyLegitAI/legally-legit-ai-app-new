@@ -1,11 +1,8 @@
 import React from 'react';
+import LaunchpadList from '@/features/launchpad/components/LaunchpadList';
 
 const LegalLaunchpadPage = () => {
-  return (
-    <div>
-      <h1>Legal Launchpad</h1>
-    </div>
-  );
+  return <LaunchpadList />;
 };
 
 export default LegalLaunchpadPage;
