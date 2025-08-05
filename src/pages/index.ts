@@ -1,7 +1,8 @@
 export { default as HomePage } from './HomePage';
-export { default as DashboardPage } from './DashboardPage';
 export { default as AboutPage } from './AboutPage';
+export { default as DashboardPage } from './DashboardPage';
 export { default as BillingPage } from './BillingPage';
+export { default as DocumentGeneratorPage } from './DocumentGeneratorPage';
 
 // Re-export auth pages
 export * from '@/features/auth/pages/SignInPage';

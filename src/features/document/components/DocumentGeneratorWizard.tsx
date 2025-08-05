@@ -18,6 +18,7 @@ import { useAuth } from '../../auth/hooks/useAuth';
 import { supabase } from '../../../shared/lib/supabase';
 import { DOCUMENT_SCHEMAS, PRIVACY_CONSENT_SCHEMA } from '../types/wizard';
 import type { DocumentFormData, WizardStep, GeneratedDocument } from '../types/wizard';
+import StepIndicator from './StepIndicator';
 
 const STEPS: WizardStep[] = [
   { id: 1, title: 'Select Document', description: 'Choose the legal document you need', isComplete: false, isActive: true },
@@ -205,7 +206,7 @@ const DocumentGeneratorWizard: React.FC = () => {
     <FormProvider {...methods}>
       <div className="w-full max-w-4xl mx-auto p-4 md:p-8">
         <h1 className="text-3xl font-bold mb-4">Document Generator Wizard</h1>
-        <Progress value={(currentStep / steps.length) * 100} className="mb-8" />
+        <StepIndicator steps={steps} currentStep={currentStep} />
 
         <AnimatePresence mode="wait">
           <motion.div
