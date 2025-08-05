@@ -35,6 +35,7 @@ export type Database = {
           stripe_customer_id: string | null;
           risk_score: number | null;
           onboarding_completed: boolean | null;
+          role: string | null;
         };
         Insert: {
           id: string;
@@ -52,6 +53,7 @@ export type Database = {
           stripe_customer_id?: string | null;
           risk_score?: number | null;
           onboarding_completed?: boolean | null;
+          role?: string | null;
         };
         Update: {
           id?: string;
@@ -69,6 +71,7 @@ export type Database = {
           stripe_customer_id?: string | null;
           risk_score?: number | null;
           onboarding_completed?: boolean | null;
+          role?: string | null;
         };
       };
       documents: {

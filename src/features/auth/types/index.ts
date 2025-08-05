@@ -1,5 +1,7 @@
 import type { User, Session, AuthError } from '@supabase/supabase-js';
 
+export type UserRole = 'admin' | 'user';
+
 export interface Profile {
   id: string;
   full_name: string | null;
@@ -12,6 +14,7 @@ export interface Profile {
   subscription_plan: string | null;
   risk_score: number | null;
   onboarding_completed: boolean | null;
+  role: UserRole;
 }
 
 export interface AuthState {
@@ -31,6 +34,7 @@ export interface AuthState {
   setUser: (user: User | null) => void
   setProfile: (profile: Profile | null) => void
   setLoading: (loading: boolean) => void
+  hasRole: (role: UserRole) => boolean;
 }
 
 export type { User, Session, AuthError };

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { supabase } from '@/shared/lib/supabase';
 import toast from 'react-hot-toast';
-import type { AuthState, Profile, User, AuthError } from '../types';
+import type { AuthState, Profile, User, AuthError, UserRole } from '../types';
 
 export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
@@ -34,6 +34,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
             id: data.user.id,
             full_name: (userData.full_name as string) || null,
             business_name: (userData.business_name as string) || null,
+            role: 'user',
             updated_at: new Date().toISOString(),
           },
         ]);
@@ -199,6 +200,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   setUser: (user: User | null) => set({ user }),
   setProfile: (profile: Profile | null) => set({ profile }),
   setLoading: (isLoading: boolean) => set({ isLoading }),
+  hasRole: (role: UserRole) => {
+    const { profile } = get();
+    return profile?.role === role;
+  },
 }));
 
 // Listen to auth changes
