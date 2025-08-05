@@ -57,11 +57,12 @@ CREATE TABLE IF NOT EXISTS risk_assessments (
     user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
     assessment_type TEXT NOT NULL,
     score NUMERIC NOT NULL,
+    answers JSONB, -- Store survey answers
     recommendations JSONB,
     status TEXT DEFAULT 'pending',
     
     CONSTRAINT valid_assessment_type 
-        CHECK (assessment_type IN ('privacy_compliance', 'data_security', 'contract_review', 'regulatory_compliance', 'general_risk')),
+        CHECK (assessment_type IN ('privacy_compliance', 'data_security', 'contract_review', 'regulatory_compliance', 'general_risk', 'compliance_health_check')),
     CONSTRAINT valid_assessment_status 
         CHECK (status IN ('pending', 'in_progress', 'completed', 'requires_action')),
     CONSTRAINT valid_score 

@@ -110,6 +110,7 @@ export type Database = {
           user_id: string;
           assessment_type: string;
           score: number;
+          answers?: Record<string, unknown> | null;
           recommendations: Record<string, unknown> | null;
           status: string;
         };
@@ -119,6 +120,7 @@ export type Database = {
           user_id: string;
           assessment_type: string;
           score: number;
+          answers?: Record<string, unknown> | null;
           recommendations?: Record<string, unknown> | null;
           status?: string;
         };
@@ -128,6 +130,7 @@ export type Database = {
           user_id?: string;
           assessment_type?: string;
           score?: number;
+          answers?: Record<string, unknown> | null;
           recommendations?: Record<string, unknown> | null;
           status?: string;
         };

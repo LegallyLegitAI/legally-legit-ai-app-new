@@ -15,6 +15,7 @@ const AppShell: React.FC<AppShellProps> = ({ children }) => {
     { name: 'Dashboard', href: '/dashboard', icon: '📊' },
     { name: 'Documents', href: '/documents', icon: '📄' },
     { name: 'Generator', href: '/generator', icon: '⚙️' },
+    { name: 'Compliance', href: '/compliance', icon: '✅' },
     { name: 'Settings', href: '/settings', icon: '⚙️' },
     { name: 'About', href: '/about', icon: 'ℹ️' },
   ];

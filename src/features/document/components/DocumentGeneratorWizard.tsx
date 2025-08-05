@@ -14,7 +14,7 @@ import { Button } from '../../../shared/components/ui/Button';
 import { Card } from '../../../shared/components/ui/Card';
 import { Progress } from '../../../shared/components/ui/Progress';
 import { Textarea } from '../../../shared/components/ui/Textarea';
-import { useAuth } from '../../auth/hooks/useAuth';
+import { useUser } from '../../auth/hooks/useAuth';
 import { supabase } from '../../../shared/lib/supabase';
 import { DOCUMENT_SCHEMAS, PRIVACY_CONSENT_SCHEMA } from '../types/wizard';
 import type { DocumentFormData, WizardStep, GeneratedDocument } from '../types/wizard';
@@ -33,7 +33,7 @@ const DocumentGeneratorWizard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [generatedDocument, setGeneratedDocument] = useState<GeneratedDocument | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const methods = useForm<DocumentFormData>({
     resolver: zodResolver(
@@ -232,7 +232,7 @@ const DocumentGeneratorWizard: React.FC = () => {
           </motion.div>
         </AnimatePresence>
 
-        {error && <Alert variant="destructive" title="Error">{error}</Alert>}
+        {error && <Alert variant="error" title="Error">{error}</Alert>}
 
         <div className="flex justify-between mt-8">
           <Button onClick={handleBack} disabled={currentStep === 1 || isLoading} variant="outline">
@@ -244,7 +244,7 @@ const DocumentGeneratorWizard: React.FC = () => {
             </Button>
           )}
           {currentStep === 3 && (
-            <Button onClick={handleSubmit(handleGenerateDocument)} disabled={isLoading}>
+            <Button onClick={(e) => { e.preventDefault(); handleSubmit(handleGenerateDocument)(); }} disabled={isLoading}>
               {isLoading ? 'Generating...' : 'Generate Document'} <FileText className="ml-2 h-4 w-4" />
             </Button>
           )}
@@ -338,10 +338,11 @@ const Step3: React.FC<{ onGenerate: (data: any) => void; isLoading: boolean; doc
         <div id="document-preview" className="mt-6 p-4 border rounded-md bg-gray-50">
           <ReactMarkdown
             components={{
-              code({ node, inline, className, children, ...props }) {
+              code({ className, children, ...props }) {
                 const match = /language-(\\w+)/.exec(className || '');
+                const inline = props.inline;
                 return !inline && match ? (
-                  <SyntaxHighlighter style={darcula} language={match[1]} PreTag="div" {...props}>
+                  <SyntaxHighlighter style={darcula as any} language={match[1]} PreTag="div" {...props}>
                     {String(children).replace(/\\n$/, '')}
                   </SyntaxHighlighter>
                 ) : (
@@ -375,7 +376,7 @@ const Step4: React.FC<{ document: GeneratedDocument | null; onSave: () => void; 
       </div>
       <div className="flex justify-center gap-4">
         <Button onClick={onSave} disabled={isLoading}><Save className="mr-2 h-4 w-4" /> Save to Dashboard</Button>
-        <Button onClick={onDownload} variant="secondary"><Download className="mr-2 h-4 w-4" /> Download PDF</Button>
+        <Button onClick={onDownload} variant="outline"><Download className="mr-2 h-4 w-4" /> Download PDF</Button>
       </div>
     </Card>
   );

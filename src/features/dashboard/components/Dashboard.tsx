@@ -1,10 +1,12 @@
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/shared/components';
 import { Button } from '@/shared/components';
+import ComplianceWidget from './ComplianceWidget';
 
 const Dashboard = () => {
   return (
     <div className="mx-auto max-w-screen-lg p-4">
       <section className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <ComplianceWidget />
         <Card variant="predict">
           <CardHeader>
             <CardTitle>Active Cases</CardTitle>

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { MarketingPage, AboutPage } from '@/features/marketing';
 import { DashboardPage, HomePage } from '@/features/dashboard';
-import { DocumentGeneratorPage } from '@/features/document';
+import { DocumentGenerator } from '@/features/document';
 import { OnboardingPage } from '@/features/onboarding';
 import { SettingsPage } from '@/features/settings';
 import { AdminPage } from '@/features/admin';
@@ -40,7 +40,7 @@ export const App = () => {
 
           {/* Protected Routes (Onboarding required) */}
           <Route path="/dashboard" element={<OnboardedRoute><AppShell><DashboardPage /></AppShell></OnboardedRoute>} />
-          <Route path="/generator" element={<OnboardedRoute><AppShell><DocumentGeneratorPage /></AppShell></OnboardedRoute>} />
+          <Route path="/generator" element={<OnboardedRoute><AppShell><DocumentGenerator /></AppShell></OnboardedRoute>} />
           <Route path="/settings" element={<OnboardedRoute><AppShell><SettingsPage /></AppShell></OnboardedRoute>} />
           <Route path="/billing" element={<OnboardedRoute><AppShell><BillingPage /></AppShell></OnboardedRoute>} />
           <Route path="/admin" element={<OnboardedRoute><AppShell><AdminPage /></AppShell></OnboardedRoute>} />
