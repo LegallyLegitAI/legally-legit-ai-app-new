@@ -15,6 +15,7 @@ export default defineConfig({
       brotliSize: true,
     })
   ],
+  assetsInclude: ['**/*.md'],
   server: {
     port: 3000,
     strictPort: true
