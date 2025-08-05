@@ -1,5 +1,8 @@
 // Admin feature exports
-export { AdminFixed as AdminPage } from './components/AdminFixed';
+export { default as AdminPage } from './pages/AdminPage';
 
 // Types
 export type * from './types';
+
+// Hooks
+export { useRoleGuard } from '../auth/hooks/useRoleGuard';

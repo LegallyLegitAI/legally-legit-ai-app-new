@@ -1,6 +1,7 @@
 // Auth hooks
 export * from './hooks/useAuth';
 export * from './hooks/useProfile';
+export * from './hooks/useRoleGuard';
 
 // Auth context
 export * from './context/AuthContext';

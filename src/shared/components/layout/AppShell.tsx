@@ -3,6 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/shared/utils';
 import { Button } from '../ui/Button';
 
+import { useAuthStore } from '@/features/auth/store/authStore';
+import { useRoleGuard } from '@/features/auth/hooks/useRoleGuard';
+
 interface AppShellProps {
   children: React.ReactNode;
 }
@@ -10,6 +13,8 @@ interface AppShellProps {
 const AppShell: React.FC<AppShellProps> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const { user, profile } = useAuthStore();
+  const { isAdmin } = useRoleGuard();
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: '📊' },
@@ -18,6 +23,10 @@ const AppShell: React.FC<AppShellProps> = ({ children }) => {
     { name: 'Settings', href: '/settings', icon: '⚙️' },
     { name: 'About', href: '/about', icon: 'ℹ️' },
   ];
+
+  if (isAdmin()) {
+    navigation.push({ name: 'Admin', href: '/admin', icon: '🛡️' });
+  }
 
   const isCurrentPath = (href: string) => {
     return location.pathname === href;
@@ -62,11 +71,13 @@ const AppShell: React.FC<AppShellProps> = ({ children }) => {
           <div className="border-t border-legally-neutral-200 p-4">
             <div className="flex items-center space-x-3">
               <div className="h-8 w-8 rounded-full bg-prevent-100 flex items-center justify-center">
-                <span className="text-sm font-medium text-prevent-700">U</span>
+                <span className="text-sm font-medium text-prevent-700">
+                  {profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U'}
+                </span>
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium text-legally-neutral-900">User</p>
-                <p className="text-xs text-legally-neutral-500">user@example.com</p>
+                <p className="text-sm font-medium text-legally-neutral-900">{profile?.full_name || 'User'}</p>
+                <p className="text-xs text-legally-neutral-500">{user?.email}</p>
               </div>
             </div>
           </div>
