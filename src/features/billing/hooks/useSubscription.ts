@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
-import { useAuth } from '@/features/auth';
+import { useUser } from '@/features/auth';
 import { Subscription } from '../types';
 
 const fetchSubscription = async (userId: string): Promise<Subscription | null> => {
@@ -26,7 +26,7 @@ const fetchSubscription = async (userId: string): Promise<Subscription | null> =
 };
 
 export const useSubscription = () => {
-  const { user } = useAuth();
+  const { user } = useUser();
 
   return useQuery<Subscription | null, Error>(
     ['subscription', user?.id],

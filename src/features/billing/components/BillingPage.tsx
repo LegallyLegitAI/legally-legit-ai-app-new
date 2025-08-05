@@ -4,7 +4,6 @@ import { SubscribeButton } from '../components/SubscribeButton';
 import { ManageSubscriptionButton } from '../components/ManageSubscriptionButton';
 import { SUBSCRIPTION_PLANS, SubscriptionPlan } from '../types';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui';
 
 export const BillingPage: React.FC = () => {
   const { data: subscription, isLoading } = useSubscription();

@@ -4,7 +4,22 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "devCommand": "npm run dev",
+  "functions": {
+    "api/stripe/create-checkout-session.ts": {
+      "runtime": "@vercel/node"
+    },
+    "api/stripe/create-portal-session.ts": {
+      "runtime": "@vercel/node"
+    },
+    "api/stripe/webhook.ts": {
+      "runtime": "@vercel/node"
+    }
+  },
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

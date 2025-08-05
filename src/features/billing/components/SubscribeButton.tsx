@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { supabase } from '@/lib/supabase';
-import { useAuth } from '@/features/auth';
+import { useUser } from '@/features/auth';
 import { Button } from '@/components/ui';
 import toast from 'react-hot-toast';
 
@@ -21,7 +21,7 @@ export const SubscribeButton: React.FC<SubscribeButtonProps> = ({
   className
 }) => {
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const handleSubscribe = async () => {
     if (!user) {
