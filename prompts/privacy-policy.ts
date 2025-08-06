@@ -1,9 +1,12 @@
-import { BasePromptTemplate } from './base.js';
+import { BasePromptTemplate } from './base';
 
 export class PrivacyPolicyTemplate extends BasePromptTemplate {
   documentType = 'privacy-policy';
 
-  protected buildBasePrompt(clientDetails: Record<string, any>, customRequirements?: string): string {
+  protected buildBasePrompt(
+    clientDetails: Record<string, unknown>,
+    customRequirements?: string
+  ): string {
     const {
       businessName,
       abn,
@@ -14,7 +17,7 @@ export class PrivacyPolicyTemplate extends BasePromptTemplate {
       dataTypes,
       thirdPartyServices,
       internationalTransfers,
-      state
+      state,
     } = clientDetails;
 
     return `You are an expert Australian privacy law writer. Generate a comprehensive Privacy Policy for an Australian business that fully complies with the Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs).
@@ -100,7 +103,7 @@ ${customRequirements ? `ADDITIONAL REQUIREMENTS:\n${customRequirements}` : ''}
 Generate a complete, professional Privacy Policy that provides transparency about data practices while ensuring full compliance with Australian privacy law.`;
   }
 
-  validateClientDetails(clientDetails: Record<string, any>): string[] {
+  validateClientDetails(clientDetails: Record<string, unknown>): string[] {
     const baseErrors = super.validateClientDetails(clientDetails);
     const errors = [...baseErrors];
 
