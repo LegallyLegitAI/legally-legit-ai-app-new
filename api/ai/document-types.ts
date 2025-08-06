@@ -1,10 +1,9 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { 
-  getAvailableDocumentTypes, 
-  getDocumentsByCategory, 
+import {
+  getAvailableDocumentTypes,
+  getDocumentsByCategory,
   getDocumentMetadata,
-  type DocumentTypeMetadata 
-} from '../../prompts/index.js';
+} from '../../prompts/index';
 
 /**
  * Vercel Edge Function to get available document types and their metadata
@@ -31,18 +30,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // If specific document type is requested
     if (type && typeof type === 'string') {
       const metadata = getDocumentMetadata(type);
-      
+
       if (!metadata) {
-        res.status(404).json({ 
+        res.status(404).json({
           error: 'Document type not found',
-          availableTypes: getAvailableDocumentTypes()
+          availableTypes: getAvailableDocumentTypes(),
         });
         return;
       }
 
       res.status(200).json({
         success: true,
-        documentType: metadata
+        documentType: metadata,
       });
       return;
     }
@@ -54,11 +53,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Filter by category if requested
     if (category && typeof category === 'string') {
       const categoryDocuments = documentsByCategory[category];
-      
+
       if (!categoryDocuments) {
-        res.status(404).json({ 
+        res.status(404).json({
           error: 'Category not found',
-          availableCategories: Object.keys(documentsByCategory)
+          availableCategories: Object.keys(documentsByCategory),
         });
         return;
       }
@@ -67,7 +66,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         success: true,
         category,
         documents: categoryDocuments,
-        total: categoryDocuments.length
+        total: categoryDocuments.length,
       });
       return;
     }
@@ -86,23 +85,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           'Privacy Act 1988',
           'Spam Act 2003',
           'Fair Trading Acts',
-          'Competition and Consumer Act 2010'
+          'Competition and Consumer Act 2010',
         ],
         features: [
           'Real-time streaming generation',
           'Australian legal compliance',
           'Rate limiting by subscription plan',
           'Professional document templates',
-          'Mandatory compliance clauses'
-        ]
-      }
+          'Mandatory compliance clauses',
+        ],
+      },
     });
-
   } catch (error) {
     console.error('Document types API error:', error);
-    res.status(500).json({ 
-      error: 'Failed to retrieve document types', 
-      message: error instanceof Error ? error.message : 'Unknown error'
+    res.status(500).json({
+      error: 'Failed to retrieve document types',
+      message: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 }
@@ -110,5 +108,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 // Export configuration for Vercel
 export const config = {
   runtime: 'nodejs18.x',
-  regions: ['syd1'] // Australia region for better latency
+  regions: ['syd1'], // Australia region for better latency
 };

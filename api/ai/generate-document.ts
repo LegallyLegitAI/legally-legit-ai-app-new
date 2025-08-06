@@ -1,11 +1,11 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { 
-  generateLegalDocument, 
-  createSSEStream, 
+import {
+  generateLegalDocument,
+  createSSEStream,
   checkRateLimit,
-  type DocumentGenerationRequest 
-} from '../../server/openai.js';
-import { validateClientDetailsForDocument } from '../../prompts/index.js';
+  type DocumentGenerationRequest,
+} from '../../server/openai';
+import { validateClientDetailsForDocument } from '../../prompts/index';
 
 /**
  * Vercel Edge Function for AI-powered legal document generation
@@ -28,22 +28,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { 
-      documentType, 
-      clientDetails, 
-      customRequirements, 
+    const {
+      documentType,
+      clientDetails,
+      customRequirements,
       userId,
       userPlan = 'starter',
-      streaming = true 
-    }: DocumentGenerationRequest & { 
+      streaming = true,
+    }: DocumentGenerationRequest & {
       userPlan?: 'starter' | 'pro' | 'enterprise';
       streaming?: boolean;
     } = req.body;
 
     // Validate required fields
     if (!documentType || !clientDetails) {
-      res.status(400).json({ 
-        error: 'Missing required fields: documentType and clientDetails are required' 
+      res.status(400).json({
+        error: 'Missing required fields: documentType and clientDetails are required',
       });
       return;
     }
@@ -51,9 +51,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Validate client details for the document type
     const validation = validateClientDetailsForDocument(documentType, clientDetails);
     if (!validation.isValid) {
-      res.status(400).json({ 
-        error: 'Invalid client details', 
-        details: validation.errors 
+      res.status(400).json({
+        error: 'Invalid client details',
+        details: validation.errors,
       });
       return;
     }
@@ -61,13 +61,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Check rate limits if userId is provided
     if (userId) {
       const rateLimitInfo = await checkRateLimit(userId, userPlan);
-      
+
       if (rateLimitInfo.remaining === 0) {
         res.status(429).json({
           error: 'Rate limit exceeded',
           message: `You have reached your plan limit. Upgrade to Pro for unlimited document generation.`,
           resetTime: rateLimitInfo.resetTime,
-          planType: rateLimitInfo.planType
+          planType: rateLimitInfo.planType,
         });
         return;
       }
@@ -83,7 +83,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       documentType,
       clientDetails,
       customRequirements,
-      userId
+      userId,
     };
 
     if (streaming) {
@@ -95,7 +95,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
       // Generate streaming response
       const openaiStream = await generateLegalDocument(request, { stream: true });
-      
+
       if (!(openaiStream instanceof ReadableStream)) {
         throw new Error('Expected streaming response but got non-stream');
       }
@@ -107,7 +107,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       try {
         while (true) {
           const { done, value } = await reader.read();
-          
+
           if (done) {
             res.end();
             break;
@@ -117,10 +117,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
       } catch (streamError) {
         console.error('Streaming error:', streamError);
-        const errorMessage = `data: ${JSON.stringify({ 
-          type: 'error', 
+        const errorMessage = `data: ${JSON.stringify({
+          type: 'error',
           error: 'Streaming interrupted',
-          timestamp: Date.now()
+          timestamp: Date.now(),
         })}\n\n`;
         res.write(errorMessage);
         res.end();
@@ -130,7 +130,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } else {
       // Non-streaming response
       const result = await generateLegalDocument(request, { stream: false });
-      
+
       if (typeof result !== 'string') {
         throw new Error('Expected non-streaming response but got stream');
       }
@@ -143,31 +143,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         metadata: {
           userId,
           userPlan,
-          rateLimitRemaining: userId ? (await checkRateLimit(userId, userPlan)).remaining : null
-        }
+          rateLimitRemaining: userId ? (await checkRateLimit(userId, userPlan)).remaining : null,
+        },
       });
     }
-
   } catch (error) {
     console.error('Document generation error:', error);
-    
+
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-    const statusCode = errorMessage.includes('rate limit') ? 429 : 
-                      errorMessage.includes('validation') ? 400 : 500;
+    const statusCode = errorMessage.includes('rate limit')
+      ? 429
+      : errorMessage.includes('validation')
+        ? 400
+        : 500;
 
     if (req.body?.streaming) {
       // Send error through SSE stream
-      const errorData = `data: ${JSON.stringify({ 
-        type: 'error', 
+      const errorData = `data: ${JSON.stringify({
+        type: 'error',
         error: errorMessage,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       })}\n\n`;
       res.write(errorData);
       res.end();
     } else {
-      res.status(statusCode).json({ 
-        error: 'Document generation failed', 
-        message: errorMessage 
+      res.status(statusCode).json({
+        error: 'Document generation failed',
+        message: errorMessage,
       });
     }
   }
@@ -177,5 +179,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 export const config = {
   runtime: 'nodejs18.x',
   maxDuration: 60, // 60 seconds for long document generation
-  regions: ['syd1'] // Australia region for better latency
+  regions: ['syd1'], // Australia region for better latency
 };

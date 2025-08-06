@@ -1,9 +1,12 @@
-import { BasePromptTemplate } from './base.js';
+import { BasePromptTemplate } from './base';
 
 export class TermsOfServiceTemplate extends BasePromptTemplate {
   documentType = 'terms-of-service';
 
-  protected buildBasePrompt(clientDetails: Record<string, any>, customRequirements?: string): string {
+  protected buildBasePrompt(
+    clientDetails: Record<string, unknown>,
+    customRequirements?: string
+  ): string {
     const {
       businessName,
       abn,
@@ -13,7 +16,7 @@ export class TermsOfServiceTemplate extends BasePromptTemplate {
       serviceDescription,
       pricingModel,
       refundPolicy,
-      state
+      state,
     } = clientDetails;
 
     return `You are an expert Australian legal document writer. Generate comprehensive Terms of Service for an Australian business that complies with all relevant Australian consumer protection laws.
@@ -74,7 +77,7 @@ ${customRequirements ? `ADDITIONAL REQUIREMENTS:\n${customRequirements}` : ''}
 Generate a complete, professional Terms of Service document that provides strong legal protection while remaining fair and compliant with Australian consumer protection laws.`;
   }
 
-  validateClientDetails(clientDetails: Record<string, any>): string[] {
+  validateClientDetails(clientDetails: Record<string, unknown>): string[] {
     const baseErrors = super.validateClientDetails(clientDetails);
     const errors = [...baseErrors];
 

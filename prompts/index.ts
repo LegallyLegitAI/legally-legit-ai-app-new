@@ -1,6 +1,6 @@
-import type { PromptTemplate } from './base.js';
-import { TermsOfServiceTemplate } from './terms-of-service.js';
-import { PrivacyPolicyTemplate } from './privacy-policy.js';
+import type { PromptTemplate } from './base';
+import { TermsOfServiceTemplate } from './terms-of-service';
+import { PrivacyPolicyTemplate } from './privacy-policy';
 
 /**
  * Registry of all available prompt templates
@@ -27,7 +27,7 @@ export function getAvailableDocumentTypes(): DocumentType[] {
  */
 export function getPromptTemplate(documentType: string): PromptTemplate | null {
   const TemplateClass = TEMPLATE_REGISTRY[documentType as DocumentType];
-  
+
   if (!TemplateClass) {
     console.warn(`Unknown document type: ${documentType}`);
     return null;
@@ -41,22 +41,22 @@ export function getPromptTemplate(documentType: string): PromptTemplate | null {
  */
 export function validateClientDetailsForDocument(
   documentType: string,
-  clientDetails: Record<string, any>
+  clientDetails: Record<string, unknown>
 ): { isValid: boolean; errors: string[] } {
   const template = getPromptTemplate(documentType);
-  
+
   if (!template) {
     return {
       isValid: false,
-      errors: [`Unsupported document type: ${documentType}`]
+      errors: [`Unsupported document type: ${documentType}`],
     };
   }
 
   const errors = template.validateClientDetails(clientDetails);
-  
+
   return {
     isValid: errors.length === 0,
-    errors
+    errors,
   };
 }
 
@@ -81,7 +81,14 @@ export const DOCUMENT_METADATA: Record<DocumentType, DocumentTypeMetadata> = {
     category: 'legal',
     complexity: 'intermediate',
     estimatedTime: '2-3 minutes',
-    requiredFields: ['businessName', 'abn', 'businessAddress', 'state', 'serviceDescription', 'contactEmail']
+    requiredFields: [
+      'businessName',
+      'abn',
+      'businessAddress',
+      'state',
+      'serviceDescription',
+      'contactEmail',
+    ],
   },
   'privacy-policy': {
     id: 'privacy-policy',
@@ -90,7 +97,7 @@ export const DOCUMENT_METADATA: Record<DocumentType, DocumentTypeMetadata> = {
     category: 'compliance',
     complexity: 'intermediate',
     estimatedTime: '2-3 minutes',
-    requiredFields: ['businessName', 'abn', 'businessAddress', 'state', 'contactEmail', 'website']
+    requiredFields: ['businessName', 'abn', 'businessAddress', 'state', 'contactEmail', 'website'],
   },
   'website-disclaimer': {
     id: 'website-disclaimer',
@@ -99,7 +106,7 @@ export const DOCUMENT_METADATA: Record<DocumentType, DocumentTypeMetadata> = {
     category: 'legal',
     complexity: 'basic',
     estimatedTime: '1-2 minutes',
-    requiredFields: ['businessName', 'abn', 'businessAddress', 'state']
+    requiredFields: ['businessName', 'abn', 'businessAddress', 'state'],
   },
   'service-agreement': {
     id: 'service-agreement',
@@ -108,8 +115,8 @@ export const DOCUMENT_METADATA: Record<DocumentType, DocumentTypeMetadata> = {
     category: 'business',
     complexity: 'advanced',
     estimatedTime: '3-5 minutes',
-    requiredFields: ['businessName', 'abn', 'businessAddress', 'state', 'serviceDescription']
-  }
+    requiredFields: ['businessName', 'abn', 'businessAddress', 'state', 'serviceDescription'],
+  },
 };
 
 /**
@@ -124,17 +131,17 @@ export function getDocumentMetadata(documentType: string): DocumentTypeMetadata 
  */
 export function getDocumentsByCategory(): Record<string, DocumentTypeMetadata[]> {
   const categories: Record<string, DocumentTypeMetadata[]> = {};
-  
-  Object.values(DOCUMENT_METADATA).forEach(metadata => {
+
+  Object.values(DOCUMENT_METADATA).forEach((metadata) => {
     if (!categories[metadata.category]) {
       categories[metadata.category] = [];
     }
     categories[metadata.category].push(metadata);
   });
-  
+
   return categories;
 }
 
 // Re-export base types and classes
-export type { PromptTemplate } from './base.js';
-export { BasePromptTemplate, getCurrentAustralianDate, formatABN } from './base.js';
+export type { PromptTemplate } from './base';
+export { BasePromptTemplate, getCurrentAustralianDate, formatABN } from './base';
